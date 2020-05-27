@@ -1,4 +1,4 @@
-import License from './components/license.vue'
+import License from '../src/components/license.vue'
 
 export default {
   install(Vue: any, options: any = {}) {

@@ -3,10 +3,12 @@
         "target": "es6",
         "module": "commonjs",
         "declaration": true,
-        "outDir": "lib",
+        "outDir": "./",
         "strict": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
         "allowSyntheticDefaultImports": true
     },
     "include": ["src"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", "src/components"]
 }

@@ -1,7 +1,9 @@
 import License from '../src/components/license.vue'
 
-export default {
-  install(Vue: any, options: any = {}) {
-    Vue.component(License.name, License)
-  }
-}
+const licensePlugin = {
+  install(Vue: any) {
+    Vue.component('license', License)
+  },
+};
+
+export default licensePlugin;

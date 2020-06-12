@@ -11,6 +11,7 @@
           name="license"
           v-validate="'required|license'"
           data-vv-validate-on="none"
+          @paste="onPasteAction"
         />
       </div>
     </div>
@@ -21,6 +22,7 @@
 
 <script>
     import { transformStringIntoLicense } from '../lib/licensePlateHandler';
+    import { removeDashes } from '../lib/stringHandler';
 
     export default {
       name: 'license',
@@ -44,6 +46,20 @@
                 this.licenseMaxLength = 8;
             }
             this.license = license;
+            this.$emit('value', this.license)
+          } catch (error) {
+            this.$validator.validate('license');
+          }
+        },
+        onPasteAction(e) {
+          this.licenseMaxLength = 8
+          try {
+            const license = transformStringIntoLicense(e);
+            if (license.length === 8) {
+                this.licenseMaxLength = 8;
+            }
+            this.license = license;
+            this.$emit('value', this.license)
           } catch (error) {
             this.$validator.validate('license');
           }
@@ -51,50 +67,9 @@
       },
       mounted() {
         const license = (value) => {
-            return value.includes('-');
+          return value.includes('-');
         }
         this.$validator.extend('license', license, { }); 
       }
     }
 </script>
-
-<style lang="scss" scoped>
-@import url("../font/RobotoCondensed-Bold.ttf");
-
-.license {
-  display: flex;
-  align-items: center;
-  height: 40px;
-  border: 2px solid #294394;
-  border-radius: 2px;
-  overflow: hidden;
-
-  &__country {
-    background-image: url(../images/nl-license.png);
-    height: 40px;
-    width: 35px;
-    background-size: cover;
-    background-position: center;
-  }
-
-  &__input {
-    background: rgb(248, 197, 44);
-    width: 100%;
-
-    input {
-      height: 40px;
-      padding: 5px;
-      box-sizing: border-box;
-      font-size: 20px;
-      width: 100%;
-      padding-left: 15px;
-      border: transparent;
-      color: black;
-      background: transparent;
-      text-transform: uppercase;
-      font-weight: bolder;
-      font-family: "Roboto Condensed", sans-serif;
-    }
-  }
-}
-</style>

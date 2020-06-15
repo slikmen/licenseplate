@@ -3,7 +3,9 @@ import { name } from "./package.json";
 module.exports = {
     banner: true,
     output: {
-      extractCSS: true
+      extractCSS: true,
+      format: 'esm',
+      fileName: '[name].js'
     },
     input: ['./src/index.ts', './src/css/style.scss'],
     plugins: {

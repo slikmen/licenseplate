@@ -27,6 +27,7 @@
 
     export default {
       name: 'license',
+      props: ['value'],
       data() {
         return {
           license: '',
@@ -39,15 +40,14 @@
           this.$validator.errors.remove('license');
           this.licenseMaxLength = 6
 
-          // Try to format license else catch error if
-          // not template is not found.
           try {
             const license = transformStringIntoLicense(e);
             if (license.length === 8) {
                 this.licenseMaxLength = 8;
             }
             this.license = license;
-            this.$emit('value', this.license)
+            this.$emit('input', this.license)
+            this.$emit('change', this.license)
           } catch (error) {
             this.$validator.validate('license');
           }
@@ -60,7 +60,8 @@
                 this.licenseMaxLength = 8;
             }
             this.license = license;
-            this.$emit('value', this.license)
+            this.$emit('input', this.license)
+            this.$emit('change', this.license)
           } catch (error) {
             this.$validator.validate('license');
           }
@@ -70,7 +71,8 @@
         const license = (value) => {
           return value.includes('-');
         }
-        this.$validator.extend('license', license, { }); 
+        this.$validator.extend('license', license, { });
+        this.checkLicense(this.value);
       }
     }
 </script>

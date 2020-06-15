@@ -7,7 +7,12 @@ import {
   import { licenseTemplates } from '../models/license.model';
   
   export function transformStringIntoLicense(e: any) {
-    const value = removeDashes(e.target.value);
+    let value = ''
+    if (typeof e.target !== 'undefined') {
+      value = removeDashes(e.target.value);
+    } else {
+      value = removeDashes(e);
+    }
     if (value.length >= 6) {
       // Bind all letters from array and replacing
       // Numbers with 9 and letters with X

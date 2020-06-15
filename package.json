@@ -2,7 +2,7 @@
   "name": "license-plugin",
   "version": "1.0.7",
   "main": "dist/index.js",
-  "types": "index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "bili --bundle-node-modules",
     "dev": "bili --config bili.config.dev.js --watch",

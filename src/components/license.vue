@@ -9,6 +9,7 @@
           @input="checkLicense"
           :maxlength="licenseMaxLength"
           name="license"
+          id="license"
           v-validate="'required|license'"
           data-vv-validate-on="none"
           @paste="onPasteAction"

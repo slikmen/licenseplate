@@ -72,7 +72,9 @@
           return value.includes('-');
         }
         this.$validator.extend('license', license, { });
-        this.checkLicense(this.value);
+        if (this.value) {
+          this.checkLicense(this.value);
+        }
       }
     }
 </script>

@@ -31,20 +31,16 @@
       data() {
         return {
           license: '',
-          licenseMaxLength: 6
+          licenseMaxLength: 8
         }
       },
       inject: ['$validator'], 
       methods: {
         checkLicense(e) {
           this.$validator.errors.remove('license');
-          this.licenseMaxLength = 6
 
           try {
             const license = transformStringIntoLicense(e);
-            if (license.length === 8) {
-                this.licenseMaxLength = 8;
-            }
             this.license = license;
             this.$emit('input', this.license)
             this.$emit('change', this.license)
@@ -53,12 +49,8 @@
           }
         },
         onPasteAction(e) {
-          this.licenseMaxLength = 8
           try {
             const license = transformStringIntoLicense(e);
-            if (license.length === 8) {
-                this.licenseMaxLength = 8;
-            }
             this.license = license;
             this.$emit('input', this.license)
             this.$emit('change', this.license)

@@ -8,7 +8,7 @@
     "dev": "bili --config bili.config.dev.js --watch",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
-    "test": "jest --config jestconfig.json",
+    "test": "jest --config jestconfig.js",
     "postversion": "git push && git push --tags",
     "prepare": "npm run test && npm run build"
   },

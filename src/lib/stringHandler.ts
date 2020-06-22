@@ -12,6 +12,11 @@ export function removeDashes(string: string) {
   
   export function checkIfNumber(letter: string) {
     const integer = parseInt(letter);
+    
+    if (integer == 0) {
+      return true
+    }
+
     if (integer) {
       if (!isNaN(integer)) {
         return true;

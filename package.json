@@ -10,7 +10,7 @@
     "lint": "tslint -p tsconfig.json",
     "test": "jest --config jest.config.js",
     "postversion": "git push && git push --tags",
-    "prepare": "npm run test && npm run build"
+    "prepare": "npm run build"
   },
   "keywords": [],
   "author": "",

@@ -17,7 +17,6 @@ import {
       // Bind all letters from array and replacing
       // Numbers with 9 and letters with X
       const letters = transformStringToArr(value).join('');
-      console.log(letters)
       let license: any = [];
   
       for (let index = 0; index < licenseTemplates.length; index++) {

@@ -5,14 +5,14 @@
       <div class="license__input">
         <input
           type="text"
-          v-model="license"
+          :value="license"
           @input="checkLicense"
           :maxlength="licenseMaxLength"
           name="license"
           id="license"
           v-validate="'required|license'"
           data-vv-validate-on="none"
-          @paste="onPasteAction"
+          @paste="checkLicense"
         />
       </div>
     </div>
@@ -30,43 +30,44 @@
       props: ['value'],
       data() {
         return {
-          license: '',
-          licenseMaxLength: 8
+          licenseMaxLength: 8,
+          licenseError: false
         }
       },
-      inject: ['$validator'], 
+      computed: {
+        license() {
+          return this.value;
+        }
+      },
       methods: {
         checkLicense(e) {
           this.$validator.errors.remove('license');
-
           try {
             const license = transformStringIntoLicense(e);
-            this.license = license;
-            this.$emit('input', this.license)
-            this.$emit('change', this.license)
+            this.$emit('input', license);
+            this.$emit('change', license);
           } catch (error) {
+            this.$emit('input', e.target.value.split('-').join(''));
+            this.$emit('change', e.target.value.split('-').join(''));
             this.$validator.validate('license');
           }
         },
-        onPasteAction(e) {
-          try {
-            const license = transformStringIntoLicense(e);
-            this.license = license;
-            this.$emit('input', this.license)
-            this.$emit('change', this.license)
-          } catch (error) {
-            this.$validator.validate('license');
-          }
-        }
       },
+      inject: ['$validator'], 
+
       mounted() {
         const license = (value) => {
-          return value.includes('-');
+          try {
+            const newValue = transformStringIntoLicense(value)
+            if (newValue) {
+              return newValue.includes('-');
+            }
+          } catch (error) {
+            return false;
+          }
+          return 
         }
         this.$validator.extend('license', license, { });
-        if (this.value) {
-          this.checkLicense(this.value);
-        }
       }
     }
 </script>

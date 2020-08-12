@@ -1,13 +1,14 @@
 import { name } from "./package.json";
 
-const config = {
-  input: {
-    [name]: "./src/index.js"
-  },
-  output: {
-    dir: "./dist/",
-    format: "esm"
-  }
+module.exports = {
+    banner: true,
+    output: {
+      extractCSS: true,
+      format: 'esm',
+      fileName: '[name].js'
+    },
+    input: ['./src/index.ts', './src/css/style.scss'],
+    plugins: {
+      vue: true,
+    }
 };
-
-export default config;

@@ -1,8 +1,8 @@
-import License from '../src/components/license.vue'
+import License from "../src/components/license.vue";
 
 const licensePlugin = {
   install(Vue: any) {
-    Vue.component('license', License)
+    Vue.component("license", License);
   },
 };
 

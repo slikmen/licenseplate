@@ -34,7 +34,7 @@ export function transformStringIntoLicense(e: any) {
       // If For Loop has gone through all iterations
       // then throw error, No template found.
       if (licenseTemplates.length === index + 1) {
-        throw "NoTemplateFound";
+        return 'no-template-found';
       }
     }
     if (license.length === 8) {

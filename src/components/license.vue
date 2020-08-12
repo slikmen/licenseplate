@@ -10,14 +10,10 @@
           :maxlength="licenseMaxLength"
           name="license"
           id="license"
-          v-validate="'required|license'"
-          data-vv-validate-on="none"
           @paste="checkLicense"
         />
       </div>
     </div>
-    <slot name="required-error" v-if="errors.has('license:required')"></slot>
-    <slot name="license-error" v-if="errors.has('license:license')"></slot>
   </div>
 </template>
 
@@ -31,43 +27,34 @@
       data() {
         return {
           licenseMaxLength: 8,
-          licenseError: false
         }
       },
       computed: {
         license() {
-          return this.value;
+          return this.checkLicense(this.value, false);
         }
       },
       methods: {
-        checkLicense(e) {
-          this.$validator.errors.remove('license');
-          try {
+        checkLicense(e, doEmit = true) {
+          if (e) {
             const license = transformStringIntoLicense(e);
-            this.$emit('input', license);
-            this.$emit('change', license);
-          } catch (error) {
-            this.$emit('input', e.target.value.split('-').join(''));
-            this.$emit('change', e.target.value.split('-').join(''));
-            this.$validator.validate('license');
-          }
-        },
-      },
-      inject: ['$validator'], 
-
-      mounted() {
-        const license = (value) => {
-          try {
-            const newValue = transformStringIntoLicense(value)
-            if (newValue) {
-              return newValue.includes('-');
+            const value = typeof e.target !== "undefined" ? e.target.value : e;
+            if (license === 'no-template-found') {
+              this.$emit('on-error');
+              return value;
+            } else {
+              if (doEmit) {
+                this.$emit('input', license);
+                this.$emit('change', license);
+              }
+              if (license.length === 8) {
+                return license;
+              } else {
+                return value;
+              }
             }
-          } catch (error) {
-            return false;
           }
-          return 
         }
-        this.$validator.extend('license', license, { });
       }
     }
 </script>
